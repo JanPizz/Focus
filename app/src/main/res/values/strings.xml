@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Focus</string>
+    <string name="welcome_msg">Quando vuoi essere avvisato?</string>
+    <string-array name="spinner_list">
+        <item>Mai</item>
+        <item>Ogni 3 minuti</item>
+        <item>Ogni 5 minuti</item>
+        <item>Ogni 10 minuti</item>
+    </string-array>
+</resources>
