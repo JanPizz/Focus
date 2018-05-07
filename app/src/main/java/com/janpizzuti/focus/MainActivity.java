@@ -29,8 +29,17 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        /**
+         *  initialize notification channel
+         */
 
         NotificationHelper mNotificationHelper = new NotificationHelper(this);
+
+        /**
+         * configure spinner, spinner adapter and listener
+         *
+         * this will let the user configure the time that passes before the notification is sent
+         */
 
         Spinner spinner = findViewById(R.id.spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -38,11 +47,19 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
+        /**
+         *  configure spinner from user preferences
+         *  TODO: use database instead of shared preferences
+         */
         spinner.setSelection(getSpinnerPositionFromMinutes(
                 getPreferences(Context.MODE_PRIVATE).getInt(SPINNER_KEY,0)));
 
         spinner.setOnItemClickListener((AdapterView.OnItemClickListener) this);
 
+        /**
+         * configure switch that controls wheter the service will be active or off
+         * TODO: use database instead of shared preferences
+         */
         Switch service_switch = findViewById(R.id.service_switch);
 
         switch (getPreferences(Context.MODE_PRIVATE).getInt(SWITCH_KEY,0)){

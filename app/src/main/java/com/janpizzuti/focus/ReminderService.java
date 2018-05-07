@@ -47,7 +47,7 @@ public class ReminderService extends IntentService {
 
 
     private void handleActionGetOffReminder(String spinner_value, String switch_state) {
-        // TODO: Handle action Foo
+        // TODO: Handle action
         throw new UnsupportedOperationException("Not yet implemented");
     }
 

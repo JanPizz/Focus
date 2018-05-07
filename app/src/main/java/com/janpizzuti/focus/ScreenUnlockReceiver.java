@@ -15,17 +15,17 @@ public class ScreenUnlockReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        // TODO: This method is called when the BroadcastReceiver is receiving
-        // an Intent broadcast.
+        // TODO: Understand wheter a broadcast receiver is needed and how to implement it
+        /**
+         *  ¯\_(ツ)_/¯
+         */
         Log.d(TAG, intent.getAction());
 
         Intent myIntent = new Intent(context, ReminderService.class);
         switch (intent.getAction()){
             case "android.intent.action.USER_PRESENT": myIntent.putExtra(USER_PRESENT, USER_PRESENT);
             case "android.intent.action.SCREEN_OFF": myIntent.putExtra(USER_NOT_PRESENT, USER_NOT_PRESENT);
-        }
-
-        myIntent.putExtra(SPINNER, );
+        };
 
 
 
