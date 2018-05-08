@@ -1,10 +1,8 @@
 package com.janpizzuti.focus;
 
-import android.app.Notification;
+
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,13 +13,13 @@ import android.widget.Spinner;
 import android.widget.Switch;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+
+    public static final String SHARED_PREFERENCES_ID = "com.janpizzuti.focus.SHARED_PREFERENCES";
     public static final String SPINNER_KEY = "com.janpizzuti.focus.SPINNER_KEY";
     public static final String SWITCH_KEY = "com.janpizzuti.focus.SWITCH_KEY";
     public static Integer SpinnerState;
     public static Integer[] spinner_minutes = {0, 3, 5, 10};
     public static Integer SwitchState;
-    private Context mContext;
-    private SQLiteDatabase mDatabase;
 
 
     @Override
@@ -49,22 +47,25 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         /**
          *  configure spinner from user preferences
-         *  TODO: use database instead of shared preferences
          */
         spinner.setSelection(getSpinnerPositionFromMinutes(
-                getPreferences(Context.MODE_PRIVATE).getInt(SPINNER_KEY,0)));
+                getSharedPreferences(SHARED_PREFERENCES_ID, Context.MODE_PRIVATE).getInt(SPINNER_KEY,0)));
 
         spinner.setOnItemClickListener((AdapterView.OnItemClickListener) this);
 
         /**
          * configure switch that controls wheter the service will be active or off
-         * TODO: use database instead of shared preferences
          */
         Switch service_switch = findViewById(R.id.service_switch);
 
-        switch (getPreferences(Context.MODE_PRIVATE).getInt(SWITCH_KEY,0)){
-            case 0: service_switch.setChecked(false);
-            case 1: service_switch.setChecked(true);
+        switch (getSharedPreferences(SHARED_PREFERENCES_ID, Context.MODE_PRIVATE).getInt(SWITCH_KEY,0)){
+            case 0:
+                service_switch.setChecked(false);
+                service_switch.setText(R.string.switch_off);
+
+            case 1:
+                service_switch.setChecked(true);
+                service_switch.setText(R.string.switch_on);
         }
 
         service_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -72,8 +73,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     SwitchState = 1;
+                    buttonView.setText(R.string.switch_on);
                 } else {
                     SwitchState = 0;
+                    buttonView.setText(R.string.switch_off);
                 }
             }
         });
@@ -97,6 +100,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
 
+
+
     @Override
     public void onStop(){
         saveSettings();
@@ -105,10 +110,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     public void saveSettings() {
-        SharedPreferences.Editor spEditor = getPreferences(Context.MODE_PRIVATE).edit();
+        SharedPreferences.Editor spEditor = getSharedPreferences(SHARED_PREFERENCES_ID, Context.MODE_PRIVATE).edit();
         spEditor.putInt(SPINNER_KEY, SpinnerState);
         spEditor.putInt(SWITCH_KEY, SwitchState);
-        spEditor.commit();
+        spEditor.apply();
     }
 
     public static Integer getSpinnerPositionFromMinutes(Integer minutes) {

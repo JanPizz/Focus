@@ -1,8 +1,11 @@
 <resources>
     <string name="app_name">Focus</string>
     <string name="welcome_msg">Quando vuoi essere avvisato?</string>
+    <string name="switch_on">Servizio Attivo</string>
+    <string name="switch_off">Servizio Disattivato</string>
+    <string name="ACTION_GET_OFF_REMINDER">com.janpizzuti.focus.action.ACTION_START_TIMER</string>
     <string-array name="spinner_list">
-        <item>Mai</item>
+        <item>Subito</item>
         <item>Ogni 3 minuti</item>
         <item>Ogni 5 minuti</item>
         <item>Ogni 10 minuti</item>
