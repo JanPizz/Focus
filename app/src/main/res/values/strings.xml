@@ -4,6 +4,15 @@
     <string name="switch_on">Servizio Attivo</string>
     <string name="switch_off">Servizio Disattivato</string>
     <string name="ACTION_GET_OFF_REMINDER">com.janpizzuti.focus.action.ACTION_START_TIMER</string>
+    <string name="something_is_wrong_error">Something went wrong</string>
+    <string name="something_is_wrong_message">We couldn\'t wait your desired time because of an error</string>
+    <string name="Get_off_reminder_title">Get Off Reminder</string>
+    <string name="reminder_zero">Don\'t get distracted. Put away your phone</string>
+    <string name="reminder_some_minutes">It\'s been %s minutes since you checked your phone. Shouldn\'t you be focusing on something else?</string>
+    <string name="sharedPrefId">com.janpizzuti.focus.SHARED_PREFERENCES</string>
+    <string name="spinnerKey">com.janpizzuti.focus.SPINNER_KEY</string>
+    <string name="switchKey">com.janpizzuti.focus.SWITCH_KEY</string>
+
     <string-array name="spinner_list">
         <item>Subito</item>
         <item>Ogni 3 minuti</item>

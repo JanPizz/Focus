@@ -1,10 +1,14 @@
 package com.janpizzuti.focus;
 
 
+import android.app.IntentService;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,9 +18,7 @@ import android.widget.Switch;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    public static final String SHARED_PREFERENCES_ID = "com.janpizzuti.focus.SHARED_PREFERENCES";
-    public static final String SPINNER_KEY = "com.janpizzuti.focus.SPINNER_KEY";
-    public static final String SWITCH_KEY = "com.janpizzuti.focus.SWITCH_KEY";
+    //private SharedPreferences mSharedPreferences;
     public static Integer SpinnerState;
     public static Integer[] spinner_minutes = {0, 3, 5, 10};
     public static Integer SwitchState;
@@ -26,6 +28,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         /**
          *  initialize notification channel
@@ -40,32 +44,40 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
          */
 
         Spinner spinner = findViewById(R.id.spinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.spinner_list, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.spinner_list, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
         /**
          *  configure spinner from user preferences
          */
-        spinner.setSelection(getSpinnerPositionFromMinutes(
-                getSharedPreferences(SHARED_PREFERENCES_ID, Context.MODE_PRIVATE).getInt(SPINNER_KEY,0)));
+        spinner.setSelection(getSpinnerPositionFromMinutes(getSharedPreferences(getResources().getString(R.string.sharedPrefId), Context.MODE_PRIVATE)
+                                                            .getInt(getResources().getString(R.string.spinnerKey),0)));
 
-        spinner.setOnItemClickListener((AdapterView.OnItemClickListener) this);
+        spinner.setOnItemSelectedListener(this);
 
         /**
          * configure switch that controls wheter the service will be active or off
          */
         Switch service_switch = findViewById(R.id.service_switch);
 
-        switch (getSharedPreferences(SHARED_PREFERENCES_ID, Context.MODE_PRIVATE).getInt(SWITCH_KEY,0)){
+        int isSwitchEnabled = getSharedPreferences(getResources().getString(R.string.sharedPrefId), Context.MODE_PRIVATE).getInt(getResources().getString(R.string.switchKey),0);
+        //int isSwitchEnabled_defp = mSharedPreferences.getInt(getResources().getString(R.string.switchKey), 0);
+
+        Log.d("SUGOISUGOISUGOI", String.format("isSwitchEnabled = %s", isSwitchEnabled));
+
+        switch (isSwitchEnabled){
             case 0:
                 service_switch.setChecked(false);
                 service_switch.setText(R.string.switch_off);
+                SwitchState = 0;
+                break;
 
             case 1:
                 service_switch.setChecked(true);
                 service_switch.setText(R.string.switch_on);
+                SwitchState = 1;
+                break;
         }
 
         service_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -81,7 +93,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         });
 
+        /**
+         * Initialize service and receiver
+         */
 
+        //BroadcastReceiver mReceiver = new ScreenUnlockReceiver();
+        //IntentService mService = new ReminderService();
 
 
 
@@ -91,6 +108,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        Log.d("SUGOISUGOISUGOI", "SPINNER SELECTED");
         SpinnerState = spinner_minutes[position]; //gets minutes immediately
     }
 
@@ -104,16 +122,23 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onStop(){
+        Log.d("SUGOISUGOISUGOI", "onSTOOOOOOOOOOOOOOP");
         saveSettings();
 
         super.onStop();
     }
 
     public void saveSettings() {
-        SharedPreferences.Editor spEditor = getSharedPreferences(SHARED_PREFERENCES_ID, Context.MODE_PRIVATE).edit();
-        spEditor.putInt(SPINNER_KEY, SpinnerState);
-        spEditor.putInt(SWITCH_KEY, SwitchState);
-        spEditor.apply();
+        SharedPreferences.Editor spEditor = getSharedPreferences(getResources().getString(R.string.sharedPrefId), Context.MODE_PRIVATE).edit();
+        if (SpinnerState != null) {
+            Log.d("SUGOISUGOISUGOI", "SPINNER PRESENT");
+            spEditor.putInt(getResources().getString(R.string.spinnerKey), SpinnerState);
+        }
+        if (SwitchState != null) {
+            Log.d("SUGOISUGOISUGOI", "SWITCH PRESENT");
+            spEditor.putInt(getResources().getString(R.string.switchKey), SwitchState);
+        }
+        spEditor.commit();
     }
 
     public static Integer getSpinnerPositionFromMinutes(Integer minutes) {

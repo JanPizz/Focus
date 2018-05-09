@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 
 public class NotificationHelper extends ContextWrapper {
     public static final String channelID = "FocusChannel";
@@ -33,10 +34,10 @@ public class NotificationHelper extends ContextWrapper {
     }
 
     public NotificationCompat.Builder sendNotification(String title, String messagge) {
+        Log.d("SUGOISUGOISUGOI", "NOTIFICATION SENT");
         return new NotificationCompat.Builder(getApplicationContext(), channelID)
                 .setContentTitle(title)
                 .setContentText(messagge)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setSmallIcon(R.drawable.ic_launcher_foreground) //TODO: Set app icon
                 .setPriority(NotificationCompat.PRIORITY_HIGH);
 
