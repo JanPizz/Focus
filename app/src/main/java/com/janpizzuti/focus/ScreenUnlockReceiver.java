@@ -15,7 +15,6 @@ public class ScreenUnlockReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
         Log.d(TAG, "RECEIVER CALLED");
-        Toast.makeText(context,"screen unlock", Toast.LENGTH_SHORT).show();
 
         String action = intent.getAction();
 

@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     //private SharedPreferences mSharedPreferences;
     public static Integer SpinnerState;
-    public static Integer[] spinner_minutes = {0, 3, 5, 10};
+    public static Integer[] spinner_minutes = {0, 1, 3, 5, 10};
     public static Integer SwitchState;
 
 
@@ -144,9 +144,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public static Integer getSpinnerPositionFromMinutes(Integer minutes) {
         switch (minutes){
             case 0: return 0;
-            case 3: return 1;
-            case 5: return 2;
-            case 10: return  3;
+            case 1: return 1;
+            case 3: return 2;
+            case 5: return 3;
+            case 10: return 4;
         }
         return 0;
     }

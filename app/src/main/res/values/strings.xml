@@ -15,8 +15,9 @@
 
     <string-array name="spinner_list">
         <item>Subito</item>
-        <item>Ogni 3 minuti</item>
-        <item>Ogni 5 minuti</item>
-        <item>Ogni 10 minuti</item>
+        <item>Dopo 1 minuto</item>
+        <item>Dopo 3 minuti</item>
+        <item>Dopo 5 minuti</item>
+        <item>Dopo 10 minuti</item>
     </string-array>
 </resources>

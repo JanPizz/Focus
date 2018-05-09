@@ -1,5 +1,6 @@
 package com.janpizzuti.focus;
 
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -33,13 +34,15 @@ public class NotificationHelper extends ContextWrapper {
         return mManager;
     }
 
-    public NotificationCompat.Builder sendNotification(String title, String messagge) {
+    public Notification sendNotification(String title, String messagge) {
         Log.d("SUGOISUGOISUGOI", "NOTIFICATION SENT");
+        Log.d("title", title);
+        Log.d("message", messagge);
         return new NotificationCompat.Builder(getApplicationContext(), channelID)
                 .setContentTitle(title)
                 .setContentText(messagge)
                 .setSmallIcon(R.drawable.ic_launcher_foreground) //TODO: Set app icon
-                .setPriority(NotificationCompat.PRIORITY_HIGH);
+                .setPriority(NotificationCompat.PRIORITY_HIGH).build();
 
     }
 }
