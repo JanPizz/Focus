@@ -35,7 +35,7 @@ public class NotificationHelper extends ContextWrapper {
     }
 
     public Notification sendNotification(String title, String messagge) {
-        Log.d("SUGOISUGOISUGOI", "NOTIFICATION SENT");
+        Log.d("Notification", "NOTIFICATION SENT");
         Log.d("title", title);
         Log.d("message", messagge);
         return new NotificationCompat.Builder(getApplicationContext(), channelID)

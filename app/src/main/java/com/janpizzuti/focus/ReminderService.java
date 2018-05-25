@@ -38,7 +38,7 @@ public class ReminderService extends IntentService {
 
 
     private void handleActionGetOffReminder(SharedPreferences sp) {
-        Log.d("SUGOISUGOISUGOI", "HANDLE ACTION CALLED");
+        Log.d(MainActivity.TAG, "HANDLE ACTION CALLED");
         if (sp.getInt("com.janpizzuti.focus.SWITCH_KEY", Context.MODE_PRIVATE) != 0) {
             Integer minutes = sp.getInt(getResources().getString(R.string.spinnerKey), 0);
             Integer milliseconds = minutes * 60 * 1000;
@@ -48,7 +48,7 @@ public class ReminderService extends IntentService {
             try {
                 Thread.sleep(milliseconds.longValue());
             } catch (InterruptedException e) {
-                Log.d("CATCH", "GOTTA CATCH THEM ALL");
+                Log.d(MainActivity.TAG, "CATCH");
                 nh.sendNotification(getString(R.string.something_is_wrong_error),
                         getString(R.string.something_is_wrong_message));
             }
@@ -57,10 +57,10 @@ public class ReminderService extends IntentService {
 
             if (minutes == 0) {
                 notification = nh.sendNotification(title, getString(R.string.reminder_zero));
-                Log.d("NOTIFICATION","time zero");
+                Log.d(MainActivity.TAG,"notification time zero");
             } else {
                 notification = nh.sendNotification(title, String.format(getString(R.string.reminder_some_minutes), mins));
-                Log.d("NOTIFICATION","time some minutes");
+                Log.d(MainActivity.TAG,"notification time some minutes");
             }
 
             NotificationManager manager = nh.getManager();

@@ -8,7 +8,7 @@
     <string name="something_is_wrong_message">We couldn\'t wait your desired time because of an error</string>
     <string name="Get_off_reminder_title">Get Off Reminder</string>
     <string name="reminder_zero">Don\'t get distracted. Put away your phone</string>
-    <string name="reminder_some_minutes">It\'s been %s minutes since you checked your phone. Shouldn\'t you be focusing on something else?</string>
+    <string name="reminder_some_minutes">It\'s been %s min since you checked your phone. Shouldn\'t you be focusing on something else?</string>
     <string name="sharedPrefId">com.janpizzuti.focus.SHARED_PREFERENCES</string>
     <string name="spinnerKey">com.janpizzuti.focus.SPINNER_KEY</string>
     <string name="switchKey">com.janpizzuti.focus.SWITCH_KEY</string>

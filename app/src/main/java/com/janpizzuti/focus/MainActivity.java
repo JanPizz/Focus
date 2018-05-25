@@ -1,11 +1,8 @@
 package com.janpizzuti.focus;
 
 
-import android.app.IntentService;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,18 +15,17 @@ import android.widget.Switch;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    //private SharedPreferences mSharedPreferences;
+
     public static Integer SpinnerState;
     public static Integer[] spinner_minutes = {0, 1, 3, 5, 10};
     public static Integer SwitchState;
+    public static final  String TAG = "com.janpizzuti.focus";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         /**
          *  initialize notification channel
@@ -62,9 +58,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Switch service_switch = findViewById(R.id.service_switch);
 
         int isSwitchEnabled = getSharedPreferences(getResources().getString(R.string.sharedPrefId), Context.MODE_PRIVATE).getInt(getResources().getString(R.string.switchKey),0);
-        //int isSwitchEnabled_defp = mSharedPreferences.getInt(getResources().getString(R.string.switchKey), 0);
 
-        Log.d("SUGOISUGOISUGOI", String.format("isSwitchEnabled = %s", isSwitchEnabled));
+        Log.d(TAG, String.format("isSwitchEnabled = %s", isSwitchEnabled));
 
         switch (isSwitchEnabled){
             case 0:
@@ -97,10 +92,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
          * Initialize service and receiver
          */
 
-        //BroadcastReceiver mReceiver = new ScreenUnlockReceiver();
-        //IntentService mService = new ReminderService();
-
-
 
     }
 
@@ -108,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        Log.d("SUGOISUGOISUGOI", "SPINNER SELECTED");
+        Log.d(TAG, "SPINNER SELECTED");
         SpinnerState = spinner_minutes[position]; //gets minutes immediately
     }
 
@@ -122,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onStop(){
-        Log.d("SUGOISUGOISUGOI", "onSTOOOOOOOOOOOOOOP");
+        Log.d(TAG, "onSTOP");
         saveSettings();
 
         super.onStop();
@@ -131,11 +122,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void saveSettings() {
         SharedPreferences.Editor spEditor = getSharedPreferences(getResources().getString(R.string.sharedPrefId), Context.MODE_PRIVATE).edit();
         if (SpinnerState != null) {
-            Log.d("SUGOISUGOISUGOI", "SPINNER PRESENT");
+            Log.d(TAG, "SPINNER PRESENT");
             spEditor.putInt(getResources().getString(R.string.spinnerKey), SpinnerState);
         }
         if (SwitchState != null) {
-            Log.d("SUGOISUGOISUGOI", "SWITCH PRESENT");
+            Log.d(TAG, "SWITCH PRESENT");
             spEditor.putInt(getResources().getString(R.string.switchKey), SwitchState);
         }
         spEditor.commit();

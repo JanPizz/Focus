@@ -24,12 +24,12 @@ public class ScreenUnlockReceiver extends BroadcastReceiver {
         if (action != null) {
             switch (action) {
                 case "android.intent.action.USER_PRESENT":
-                    Log.d("SUGOISUGOISUGOI", "USER PRESENT");
+                    Log.d(TAG, "USER PRESENT");
                     myIntent.setAction(myAction);
                     context.startService(myIntent);
                     break;
                 case "android.intent.action.SCREEN_OFF":
-                    Log.d("SUGOISUGOISUGOI", "SCREEN OFF");
+                    Log.d(TAG, "SCREEN OFF");
                     context.stopService(myIntent);
                     break;
             }
